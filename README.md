@@ -11,3 +11,6 @@
 4. 배송을 시행하는 외부 시스템(물류 회사 시스템)이 배송 단계별로 상태는 변경한다.
 5. 주문 취소되더라도 고객은 MyPage에서 주문 이력을 모두 조회할 수 있다.
 ```
+
+
+![Alt text](cna-bookstore.PNG?raw=true "Optional Title")

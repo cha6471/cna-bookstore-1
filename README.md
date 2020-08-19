@@ -12,5 +12,5 @@
 5. 주문 취소되더라도 고객은 MyPage에서 주문 이력을 모두 조회할 수 있다.
 ```
 
-
+## Cloud Native Application Model
 ![Alt text](cna-bookstore.PNG?raw=true "Optional Title")

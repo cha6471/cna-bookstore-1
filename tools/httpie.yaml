@@ -1,0 +1,14 @@
+apiVersion: "v1"
+kind: "Pod"
+metadata: 
+  name: httpie
+  namespace: default
+  labels: 
+    name: httpie
+spec: 
+  containers: 
+    - name: httpie
+      image: clue/httpie
+      command:
+        - sleep
+        - "360000"

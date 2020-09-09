@@ -349,7 +349,7 @@ application.yaml 파일 설정 변경
 ```
 readinessProbe:
   httpGet:
-    path: '/orders'
+    path: '/kakaoAlarm'
     port: 8080
   initialDelaySeconds: 12
   timeoutSeconds: 2
@@ -359,7 +359,7 @@ readinessProbe:
 ### 점검 순서
 #### 1. Siege 실행
 ```
-siege -c2 -t120S  -v 'http://gateway:8080/orders
+siege -c2 -t120S  -v 'http://gateway:8080/kakaoAlarms
 ```
 #### 2. Readiness 설정 제거 후 배포
 #### 3. Siege 결과 Availability 확인(100% 미만)
@@ -383,22 +383,19 @@ Shortest transaction:           0.00
 
 #### 6. Siege 결과 Availability 확인(100%)
 ```
-Lifting the server siege...      done.
-
-Transactions:                    443 hits
+Lifting the server siege...
+Transactions:                    759 hits
 Availability:                 100.00 %
-Elapsed time:                 119.60 secs
-Data transferred:               0.51 MB
-Response time:                  0.01 secs
-Transaction rate:               3.70 trans/sec
+Elapsed time:                 119.74 secs
+Data transferred:               0.26 MB
+Response time:                  0.07 secs
+Transaction rate:               6.34 trans/sec
 Throughput:                     0.00 MB/sec
-Concurrency:                    0.04
-Successful transactions:         443
+Concurrency:                    0.43
+Successful transactions:         759
 Failed transactions:               0
-Longest transaction:            0.18
-Shortest transaction:           0.00
- 
-FILE: /var/log/siege.log
+Longest transaction:            0.80
+Shortest transaction:           0.06
 ```
 
 ## Liveness Probe 점검
@@ -416,11 +413,11 @@ livenessProbe:
 ### 점검 순서 및 결과
 #### 1. 기동 확인
 ```
-http http://gateway:8080/orders
+http http://gateway:8080/kakaoAlarms
 ```
 #### 2. 상태 확인
 ```
-oot@httpie:/# http http://order:8080/isHealthy
+oot@httpie:/# http http://kakao:8080/isHealthy
 HTTP/1.1 200 
 Content-Length: 0
 Date: Wed, 09 Sep 2020 02:14:22 GMT
@@ -428,14 +425,14 @@ Date: Wed, 09 Sep 2020 02:14:22 GMT
 
 #### 3. 상태 변경
 ```
-root@httpie:/# http http://order:8080/makeZombie
+root@httpie:/# http http://kakao:8080/makeZombie
 HTTP/1.1 200 
 Content-Length: 0
 Date: Wed, 09 Sep 2020 02:14:24 GMT
 ```
 #### 4. 상태 확인
 ```
-root@httpie:/# http http://order:8080/isHealthy
+root@httpie:/# http http://kakao:8080/isHealthy
 HTTP/1.1 500 
 Connection: close
 Content-Type: application/json;charset=UTF-8
@@ -452,10 +449,10 @@ Transfer-Encoding: chunked
 ```
 #### 5. Pod 재기동 확인
 ```
-root@httpie:/# http http://order:8080/isHealthy
+root@httpie:/# http http://kakao:8080/isHealthy
 http: error: ConnectionError: HTTPConnectionPool(host='order', port=8080): Max retries exceeded with url: /makeZombie (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f5196111c50>: Failed to establish a new connection: [Errno 111] Connection refused',))
 
-root@httpie:/# http http://order:8080/isHealthy
+root@httpie:/# http http://kakao:8080/isHealthy
 HTTP/1.1 200 
 Content-Length: 0
 Date: Wed, 09 Sep 2020 02:36:00 GMT

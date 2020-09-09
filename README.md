@@ -18,6 +18,8 @@
   - 상품 준비 시 배송 시작  
 * 배송을 시행하는 외부 시스템(물류 회사 시스템) 또는 배송 담당자는 배송 단계별로 상태는 변경한다. 변경된 배송 상태는 주문에 알려 반영한다.
 * 주문 취소되더라도 고객은 MyPage에서 주문 이력을 모두 조회할 수 있다.
+* Delivery Status 변경 시 Kakao 서비스로 Alarm Message를 생성한다.
+* Kakao Alram Message 생성 시 CustomerId가 존재하는 경우에만 Message를 전송한다. (Req/Rep)
 ```
 ## 아키텍처
 ```
@@ -26,7 +28,7 @@
 ```
 
 ## Cloud Native Application Model
-![Alt text](cna-bookstore.PNG?raw=true "Optional Title")
+![Alt text](cna-bookstore-jw.PNG?raw=true "Optional Title")
 
 ## 구현 점검
 

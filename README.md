@@ -89,7 +89,25 @@ http http://gateway:8080/deliveries
 ## Circuit Breaker 점검
 
 ## Autoscale 점검
-d오토
+### 설정 확인
+```
+application.yaml 파일 설정 변경
+ resources:
+  limits:
+    cpu: 500m
+  requests:
+    cpu: 200m
+```
+### 점검 순서
+```
+1. HPA 생성 및 설정
+	kubectl autoscale deploy bookinventory --min=1 --max=10 --cpu-percent=30
+	kubectl get hpa bookinventory -o yaml
+2. 모니터링 걸어놓고 확인
+	kubectl get hpa bookinventory -w
+	watch kubectl get deploy,po
+3. Siege 실행
+  siege -c10 -t60S -v http://gateway:8080/books/
 
 ## Readiness Probe 점검
 ### 설정 확인
@@ -114,6 +132,7 @@ siege -c2 -t120S  -v 'http://gateway:8080/orders'
 5. Readiness 설정 추가 후 배포
 6. Siege 결과 Availability 확인(100%)
 ```
+### 점검 결과
 
 ## Liveness Probe 점검
 ### 설정 확인

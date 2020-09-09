@@ -417,10 +417,10 @@ http http://gateway:8080/kakaoAlarms
 ```
 #### 2. 상태 확인
 ```
-oot@httpie:/# http http://kakao:8080/isHealthy
+root@httpie:/# http http://kakao:8080/isHealthy    
 HTTP/1.1 200 
 Content-Length: 0
-Date: Wed, 09 Sep 2020 02:14:22 GMT
+Date: Wed, 09 Sep 2020 18:44:57 GMT
 ```
 
 #### 3. 상태 변경
@@ -428,7 +428,7 @@ Date: Wed, 09 Sep 2020 02:14:22 GMT
 root@httpie:/# http http://kakao:8080/makeZombie
 HTTP/1.1 200 
 Content-Length: 0
-Date: Wed, 09 Sep 2020 02:14:24 GMT
+Date: Wed, 09 Sep 2020 18:45:14 GMT
 ```
 #### 4. 상태 확인
 ```
@@ -436,7 +436,7 @@ root@httpie:/# http http://kakao:8080/isHealthy
 HTTP/1.1 500 
 Connection: close
 Content-Type: application/json;charset=UTF-8
-Date: Wed, 09 Sep 2020 02:14:28 GMT
+Date: Wed, 09 Sep 2020 18:46:05 GMT
 Transfer-Encoding: chunked
 
 {
@@ -444,16 +444,16 @@ Transfer-Encoding: chunked
     "message": "zombie.....", 
     "path": "/isHealthy", 
     "status": 500, 
-    "timestamp": "2020-09-09T02:14:28.338+0000"
+    "timestamp": "2020-09-09T18:46:05.114+0000"
 }
 ```
 #### 5. Pod 재기동 확인
 ```
 root@httpie:/# http http://kakao:8080/isHealthy
-http: error: ConnectionError: HTTPConnectionPool(host='order', port=8080): Max retries exceeded with url: /makeZombie (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f5196111c50>: Failed to establish a new connection: [Errno 111] Connection refused',))
 
+http: error: ConnectionError: HTTPConnectionPool(host='kakao', port=8080): Max retries exceeded with url: /isHealthy (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f786f42d810>: Failed to establish a new connection: [Errno 111] Connection refused',))
 root@httpie:/# http http://kakao:8080/isHealthy
 HTTP/1.1 200 
 Content-Length: 0
-Date: Wed, 09 Sep 2020 02:36:00 GMT
+Date: Wed, 09 Sep 2020 18:46:46 GMT
 ```

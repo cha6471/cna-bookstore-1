@@ -89,6 +89,7 @@ http http://gateway:8080/deliveries
 ## Circuit Breaker 점검
 
 ## Autoscale 점검
+d오토스케일 작업 예정
 
 ## Readiness Probe 점검
 ### 설정 확인

@@ -108,7 +108,10 @@ application.yaml 파일 설정 변경
 	watch kubectl get deploy,po
 3. Siege 실행
   siege -c10 -t60S -v http://gateway:8080/books/
-
+```
+### 점검 순서
+```
+```
 ## Readiness Probe 점검
 ### 설정 확인
 ```

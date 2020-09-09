@@ -112,6 +112,23 @@ http POST http://gateway:8080/orders bookId=1 customerId=2 deliveryAddress="inch
 ```
 
 ##### Deliveriy 확인 결과
+```
+root@httpie:/# http http://gateway:8080/deliveraries
+{
+    "_links": {
+        "delivery": {
+            "href": "http://delivery:8080/deliveries/4"
+        }, 
+        "self": {
+            "href": "http://delivery:8080/deliveries/4"
+        }
+    }, 
+    "deliveryAddress": "incheon si", 
+    "deliveryStatus": "CreateDelivery", 
+    "orderId": 4
+}
+
+```
 
 ##### Deliverables 확인 결과
 ```

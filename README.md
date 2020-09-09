@@ -129,7 +129,7 @@ application.yaml 파일 설정 변경
   siege -c10 -t60S -v http://gateway:8080/books/
 ```
 ### 점검 결과
-![Alt text](HPA_test.PNG?raw=true "Optional Title")
+![Alt text](/imgaes/HPA_test.PNG?raw=true "Optional Title")
 
 ## Readiness Probe 점검
 ### 설정 확인

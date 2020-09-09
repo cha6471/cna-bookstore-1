@@ -236,8 +236,10 @@ transfer-encoding: chunked
 ```
 
 ### 배송 상태 변경
-```
-```
+![Alt text](delivery_ShippingCompleted.PNG?raw=true "Optional Title")
+
+### 배송 상태 Kakao Message 확인
+![Alt text](kakao_alarmMessage.PNG?raw=true "Optional Title")
 
 ### 고객 Mypage 이력 확인
 ```

@@ -168,6 +168,62 @@ transfer-encoding: chunked
 
 ## Circuit Breaker 점검
 
+```
+Hystrix Command
+	5000ms 이상 Timeout 발생 시 CircuitBearker 발동
+
+CircuitBeaker 발생
+	http http://delivery:8080/circuitBreaker?isYn=Y
+		- 10000ms(10sec) Sleep 수행
+		- 5000ms Timeout으로 CircuitBeaker 발동
+```
+
+```
+실행 결과
+
+root@httpie:/# http http://delivery:8080/circuitBreaker?isYn=N
+HTTP/1.1 200 
+Content-Length: 11
+Content-Type: text/plain;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:01:37 GMT
+
+SUCCESS!!!
+
+root@httpie:/# http http://delivery:8080/circuitBreaker?isYn=Y
+HTTP/1.1 200 
+Content-Length: 17
+Content-Type: text/plain;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:01:46 GMT
+
+CircuitBreaker!!!
+```
+
+```
+소스 코드
+
+  @GetMapping("/circuitBreaker")
+  @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+          @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
+          @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")
+  })
+  public String circuitBreakerTest(@RequestParam String isYn) throws InterruptedException {
+
+   if (isYn.equals("Y")) {
+    System.out.println("@@@ CircuitBreaker!!!");
+    Thread.sleep(10000);
+    //throw new RuntimeException("CircuitBreaker!!!");
+   }
+
+   System.out.println("$$$ SUCCESS!!!");
+   return " SUCCESS!!!";
+  }
+
+  private String fallback(String isYn) {
+   System.out.println("### fallback!!!");
+   return "CircuitBreaker!!!";
+  }
+```
+
 ## Autoscale 점검
 ### 설정 확인
 ```

@@ -114,14 +114,98 @@ http POST http://gateway:8080/orders bookId=1 customerId=2 deliveryAddress="inch
 ### 주문 준비
 ```
 http http://gateway:8080/deliverables
+           {
+                "_links": {
+                    "deliverable": {
+                        "href": "http://bookinventory:8080/deliverables/5"
+                    }, 
+                    "self": {
+                        "href": "http://bookinventory:8080/deliverables/5"
+                    }
+                }, 
+                "orderId": 4, 
+                "quantity": 100, 
+                "status": "Stock_Lacked"
+            }
+	    
 http POST http://gateway:8080/stockInputs bookId=1 quantity=200
+root@httpie:/# http POST http://gateway:8080/stockInputs bookId=1 quantity=200
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:47:04 GMT
+transfer-encoding: chunked
+
+{
+    "bookId": 1, 
+    "id": 8, 
+    "inCharger": null, 
+    "quantity": 200
+}
 ```
 ##### 재고 수량 변경 확인 결과
+```
+root@httpie:/# http http://gateway:8080/books/1 
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:53:26 GMT
+transfer-encoding: chunked
+{
+    "_links": {
+        "book": {
+            "href": "http://bookinventory:8080/books/1"
+        }, 
+        "self": {
+            "href": "http://bookinventory:8080/books/1"
+        }
+    }, 
+    "bookName": "alice in a wonderland", 
+    "stock": 150
+}
+```
+
 ##### 주문 상태 변경 확인 결과
 ```
-http http://gateway:8080/orders
-http http://gateway:8080/deliverables
-http http://gateway:8080/deliveries
+root@httpie:/# http http://gateway:8080/orders/4
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:55:30 GMT
+transfer-encoding: chunked
+
+{
+    "_links": {
+        "order": {
+            "href": "http://order:8080/orders/4"
+        }, 
+        "self": {
+            "href": "http://order:8080/orders/4"
+        }
+    }, 
+    "bookId": 1, 
+    "customerId": 2, 
+    "deliveryAddress": "incheon si", 
+    "orderStatus": "Shipped", 
+    "quantity": 100
+}
+
+root@httpie:/# http http://gateway:8080/deliverables/5
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:55:07 GMT
+transfer-encoding: chunked
+
+{
+    "_links": {
+        "deliverable": {
+            "href": "http://bookinventory:8080/deliverables/5"
+        }, 
+        "self": {
+            "href": "http://bookinventory:8080/deliverables/5"
+        }
+    }, 
+    "orderId": 3, 
+    "quantity": 100, 
+    "status": "Delivery_Prepared"
+}
 ```
 
 ### 배송 상태 변경

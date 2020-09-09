@@ -341,7 +341,8 @@ application.yaml 파일 설정 변경
   siege -c10 -t60S -v http://40.82.153.8:8080/kakaoAlarms/
 ```
 ### 점검 결과
-![Alt text](images/HPA_test.PNG?raw=true "Optional Title")
+![Alt text](kakao_hpa1.PNG?raw=true "Optional Title")
+![Alt text](kakao_hpa.PNG?raw=true "Optional Title")
 
 ## Readiness Probe 점검
 ### 설정 확인

@@ -332,13 +332,13 @@ application.yaml 파일 설정 변경
 ### 점검 순서
 ```
 1. HPA 생성 및 설정
-	kubectl autoscale deploy bookinventory --min=1 --max=10 --cpu-percent=30
-	kubectl get hpa bookinventory -o yaml
+	kubectl autoscale deploy kakao --min=1 --max=10 --cpu-percent=30
+	kubectl get hpa kakao -o yaml
 2. 모니터링 걸어놓고 확인
-	kubectl get hpa bookinventory -w
+	kubectl get hpa kakao -w
 	watch kubectl get deploy,po
 3. Siege 실행
-  siege -c10 -t60S -v http://gateway:8080/books/
+  siege -c10 -t60S -v http://40.82.153.8:8080/kakaoAlarms/
 ```
 ### 점검 결과
 ![Alt text](images/HPA_test.PNG?raw=true "Optional Title")

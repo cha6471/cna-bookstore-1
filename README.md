@@ -243,6 +243,7 @@ transfer-encoding: chunked
 
 ### 고객 Mypage 이력 확인
 ![Alt text](kakao_myPages.PNG?raw=true "Optional Title")
+![Alt text](kakao_myPages_src.PNG?raw=true "Optional Title")
 
 ### 장애 격리
 ```
@@ -252,9 +253,10 @@ Customer 서비스 중지 시 Kakao Alarm 미 전송
 ![Alt text](장애격리.PNG?raw=true "Optional Title")
 
 ## CI/CD 점검
+![Alt text](ci.PNG?raw=true "Optional Title")
+![Alt text](cd.PNG?raw=true "Optional Title")
 
 ## Circuit Breaker 점검
-
 ```
 Hystrix Command
 	5000ms 이상 Timeout 발생 시 CircuitBearker 발동

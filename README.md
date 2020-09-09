@@ -289,9 +289,34 @@ livenessProbe:
 ```
 1. 기동 확인
 http http://gateway:8080/orders
-2. Siege 실행
-siege -c2 -t100S  -v 'http://gateway:8080/orders'
-3. 서비스 상태 변경
-http http://order:8080/makeZombie
+
+2. 상태 확인
+oot@httpie:/# http http://order:8080/isHealthy
+HTTP/1.1 200 
+Content-Length: 0
+Date: Wed, 09 Sep 2020 02:14:22 GMT
+
+3. 상태 변경
+root@httpie:/# http http://order:8080/makeZombie
+HTTP/1.1 200 
+Content-Length: 0
+Date: Wed, 09 Sep 2020 02:14:24 GMT
+
+4. 상태 확인
+root@httpie:/# http http://order:8080/isHealthy
+HTTP/1.1 500 
+Connection: close
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 09 Sep 2020 02:14:28 GMT
+Transfer-Encoding: chunked
+
+{
+    "error": "Internal Server Error", 
+    "message": "zombie.....", 
+    "path": "/isHealthy", 
+    "status": 500, 
+    "timestamp": "2020-09-09T02:14:28.338+0000"
+}
+
 4. Pod 재기동 확인
 ```

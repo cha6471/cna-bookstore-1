@@ -105,15 +105,17 @@ transfer-encoding: chunked
 http POST http://gateway:8080/orders bookId=1 customerId=1 deliveryAddress="bundang gu" quantity=50
 http POST http://gateway:8080/orders bookId=1 customerId=2 deliveryAddress="incheon si" quantity=100
 ```
+
 ##### Message 전송 확인 결과
+```
+{"eventType":"Ordered","timestamp":"20200909024119","orderId":4,"bookId":1,"customerId":2,"quantity":100,"deliveryAddress":"incheon si","orderStatus":"ORDERED","me":true}
+```
 
 ##### Deliveriy 확인 결과
 
 ##### Deliverables 확인 결과
-
-### 주문 준비
 ```
-http http://gateway:8080/deliverables
+root@httpie:/# http http://gateway:8080/deliverables
            {
                 "_links": {
                     "deliverable": {
@@ -127,8 +129,10 @@ http http://gateway:8080/deliverables
                 "quantity": 100, 
                 "status": "Stock_Lacked"
             }
-	    
-http POST http://gateway:8080/stockInputs bookId=1 quantity=200
+```
+
+### 주문 준비
+```
 root@httpie:/# http POST http://gateway:8080/stockInputs bookId=1 quantity=200
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
@@ -141,6 +145,10 @@ transfer-encoding: chunked
     "inCharger": null, 
     "quantity": 200
 }
+```
+```
+{"eventType":"DeliveryPrepared","timestamp":"20200909024704","id":null,"orderId":4,"status":"Delivery_Prepared","me":true}
+{"eventType":"DeliveryStatusChanged","timestamp":"20200909024704","id":4,"orderId":4,"deliveryStatus":"Shipped","me":true}
 ```
 ##### 재고 수량 변경 확인 결과
 ```

@@ -32,6 +32,10 @@
 
 ### 모든 서비스 정상 기동 
 ```
+* Httpie Pod 접속
+kubectl exec -it httpie -- bash
+
+* API 
 http http://gateway:8080/customers
 http http://gateway:8080/myPages
 http http://gateway:8080/books
@@ -126,7 +130,6 @@ application.yaml 파일 설정 변경
 ```
 ### 점검 결과
 ```
-![Alt text](HPA test.PNG?raw=true "Optional Title")
 ```
 ## Readiness Probe 점검
 ### 설정 확인

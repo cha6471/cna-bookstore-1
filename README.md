@@ -109,7 +109,7 @@ application.yaml 파일 설정 변경
 3. Siege 실행
   siege -c10 -t60S -v http://gateway:8080/books/
 ```
-### 점검 순서
+### 점검 결과
 ```
 ```
 ## Readiness Probe 점검

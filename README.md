@@ -285,24 +285,28 @@ livenessProbe:
   periodSeconds: 5
   failureThreshold: 5
 ```
-### 점검 순서
+### 점검 순서 및 결과
+#### 1. 기동 확인
 ```
-1. 기동 확인
 http http://gateway:8080/orders
-
-2. 상태 확인
+```
+#### 2. 상태 확인
+```
 oot@httpie:/# http http://order:8080/isHealthy
 HTTP/1.1 200 
 Content-Length: 0
 Date: Wed, 09 Sep 2020 02:14:22 GMT
+```
 
-3. 상태 변경
+#### 3. 상태 변경
+```
 root@httpie:/# http http://order:8080/makeZombie
 HTTP/1.1 200 
 Content-Length: 0
 Date: Wed, 09 Sep 2020 02:14:24 GMT
-
-4. 상태 확인
+```
+#### 4. 상태 확인
+```
 root@httpie:/# http http://order:8080/isHealthy
 HTTP/1.1 500 
 Connection: close
@@ -317,8 +321,9 @@ Transfer-Encoding: chunked
     "status": 500, 
     "timestamp": "2020-09-09T02:14:28.338+0000"
 }
-
-4. Pod 재기동 확인
+```
+#### 5. Pod 재기동 확인
+```
 root@httpie:/# http http://order:8080/isHealthy
 http: error: ConnectionError: HTTPConnectionPool(host='order', port=8080): Max retries exceeded with url: /makeZombie (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f5196111c50>: Failed to establish a new connection: [Errno 111] Connection refused',))
 

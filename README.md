@@ -249,6 +249,7 @@ transfer-encoding: chunked
 Customer 서비스 중지 시 Kakao Alarm 미 전송
 @PrePersist 에서 try / catch 처리
 ```
+![Alt text](장애격리.PNG?raw=true "Optional Title")
 
 ## CI/CD 점검
 

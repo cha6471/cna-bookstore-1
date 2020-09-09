@@ -319,4 +319,11 @@ Transfer-Encoding: chunked
 }
 
 4. Pod 재기동 확인
+root@httpie:/# http http://order:8080/isHealthy
+http: error: ConnectionError: HTTPConnectionPool(host='order', port=8080): Max retries exceeded with url: /makeZombie (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f5196111c50>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+root@httpie:/# http http://order:8080/isHealthy
+HTTP/1.1 200 
+Content-Length: 0
+Date: Wed, 09 Sep 2020 02:36:00 GMT
 ```

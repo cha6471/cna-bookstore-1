@@ -132,7 +132,6 @@ siege -c2 -t120S  -v 'http://gateway:8080/orders'
 5. Readiness 설정 추가 후 배포
 6. Siege 결과 Availability 확인(100%)
 ```
-### 점검 결과
 
 ## Liveness Probe 점검
 ### 설정 확인

@@ -228,6 +228,7 @@ CircuitBreaker!!!
 ### 설정 확인
 ```
 application.yaml 파일 설정 변경
+(https://k8s.io/examples/application/php-apache.yaml 파일 참고)
  resources:
   limits:
     cpu: 500m

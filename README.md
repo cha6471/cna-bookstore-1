@@ -89,7 +89,7 @@ http http://gateway:8080/deliveries
 ## Circuit Breaker 점검
 
 ## Autoscale 점검
-d오토스
+d오토스케일 작업 예정
 
 ## Readiness Probe 점검
 ### 설정 확인
@@ -137,3 +137,4 @@ siege -c2 -t100S  -v 'http://gateway:8080/orders'
 http http://order:8080/makeZombie
 4. Pod 재기동 확인
 ```
+000000000000000000000000000000

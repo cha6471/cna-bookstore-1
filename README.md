@@ -282,55 +282,69 @@ Hystrix Command
 	5000ms 이상 Timeout 발생 시 CircuitBearker 발동
 
 CircuitBeaker 발생
-	http http://delivery:8080/circuitBreaker?isYn=Y
+	http http://delivery:8080/selectDeliveryInfo?deliveryId=1
+		- 잘못된 쿼리 수행 시 CircuitBeaker
 		- 10000ms(10sec) Sleep 수행
 		- 5000ms Timeout으로 CircuitBeaker 발동
+		- 10000ms(10sec) 
 ```
 
 ```
 실행 결과
 
-root@httpie:/# http http://delivery:8080/circuitBreaker?isYn=N
+root@httpie:/# http http://delivery:8080/selectDeliveryInfo?deliveryId=1
 HTTP/1.1 200 
-Content-Length: 11
+Content-Length: 7
 Content-Type: text/plain;charset=UTF-8
-Date: Wed, 09 Sep 2020 02:01:37 GMT
+Date: Wed, 09 Sep 2020 04:27:53 GMT
 
-SUCCESS!!!
+Shipped
 
-root@httpie:/# http http://delivery:8080/circuitBreaker?isYn=Y
+root@httpie:/# http http://delivery:8080/selectDeliveryInfo?deliveryId=0
 HTTP/1.1 200 
 Content-Length: 17
 Content-Type: text/plain;charset=UTF-8
-Date: Wed, 09 Sep 2020 02:01:46 GMT
+Date: Wed, 09 Sep 2020 04:28:03 GMT
 
 CircuitBreaker!!!
+
+root@httpie:/# http http://delivery:8080/selectDeliveryInfo?deliveryId=1
+HTTP/1.1 200 
+Content-Length: 17
+Content-Type: text/plain;charset=UTF-8
+Date: Wed, 09 Sep 2020 04:28:06 GMT
+
+CircuitBreaker!!!
+
 ```
 
 ```
 소스 코드
 
-  @GetMapping("/circuitBreaker")
-  @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+@GetMapping("/selectDeliveryInfo")
+  @HystrixCommand(fallbackMethod = "fallbackDelivery", commandProperties = {
           @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
           @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")
   })
-  public String circuitBreakerTest(@RequestParam String isYn) throws InterruptedException {
+  public String selectDeliveryInfo(@RequestParam long deliveryId) throws InterruptedException {
 
-   if (isYn.equals("Y")) {
+   if (deliveryId <= 0) {
     System.out.println("@@@ CircuitBreaker!!!");
     Thread.sleep(10000);
     //throw new RuntimeException("CircuitBreaker!!!");
+   } else {
+    Optional<Delivery> delivery = deliveryRepository.findById(deliveryId);
+    return delivery.get().getDeliveryStatus();
    }
 
    System.out.println("$$$ SUCCESS!!!");
    return " SUCCESS!!!";
   }
 
-  private String fallback(String isYn) {
-   System.out.println("### fallback!!!");
-   return "CircuitBreaker!!!";
-  }
+ private String fallbackDelivery(long deliveryId) {
+  System.out.println("### fallback!!!");
+  return "CircuitBreaker!!!";
+ }
 ```
 
 ## Autoscale 점검

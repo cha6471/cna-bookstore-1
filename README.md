@@ -8,6 +8,7 @@
 * 고객이 주문을 생성할 때 고객정보와 Book 정보가 있어야 한다.
   - Order -> Customer 동기호출
   - Order -> BookInventory 동기호출
+  - Customer 서비스가 중지되어 있더라도 주문은 생성하되 주문상태를 "Customer_Not_Verified"로 설정하여 타 서비스로의 전달은 진행하지 않는다.
 * 주문 시에 재고가 없더라도 주문이 가능하다.
   - 주문 상태는 “Ordered”
 * 주문 취소는 "Ordered" 상태일 경우만 가능하다.
@@ -38,6 +39,11 @@ http http://gateway:8080/deliverables
 http http://gateway:8080/stockInputs
 http http://gateway:8080/orders
 http http://gateway:8080/deliveries
+```
+
+### Kafka 기동 및 모니터링 용 Consumer 연결
+```
+kubectl -n kafka exec -ti my-kafka-0 -- /usr/bin/kafka-console-consumer --bootstrap-server my-kafka:9092 --topic cnabookstore --from-beginning
 ```
 
 ### 고객 생성
@@ -82,6 +88,15 @@ http http://gateway:8080/deliveries
 
 ### 고객 Mypage 이력 확인
 ```
+```
+
+### 장애 격리
+```
+1. Customer 서비스 중지
+	kubectl delete deploy customer
+2. 주문 생성
+	http POST http://gateway:8080/orders bookId=1 customerId=2 deliveryAddress="incheon si" quantity=100
+3. 주문 생성 결과 확인
 ```
 
 ## CI/CD 점검
@@ -158,4 +173,3 @@ siege -c2 -t100S  -v 'http://gateway:8080/orders'
 http http://order:8080/makeZombie
 4. Pod 재기동 확인
 ```
-000000000000000000000000000000

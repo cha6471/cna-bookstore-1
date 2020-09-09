@@ -371,15 +371,48 @@ readinessProbe:
   failureThreshold: 10
 ```
 ### 점검 순서
+#### 1. Siege 실행
 ```
-1. Repli
-http http://gateway:8080/orders
-2. Siege 실행
-siege -c2 -t120S  -v 'http://gateway:8080/orders'
-3. Readiness 설정 제거 후 배포
-4. Siege 결과 Availability 확인(100% 미만)
-5. Readiness 설정 추가 후 배포
-6. Siege 결과 Availability 확인(100%)
+siege -c2 -t120S  -v 'http://gateway:8080/orders
+```
+#### 2. Readiness 설정 제거 후 배포
+#### 3. Siege 결과 Availability 확인(100% 미만)
+```
+Lifting the server siege...      done.
+
+Transactions:                    330 hits
+Availability:                  70.82 %
+Elapsed time:                 119.92 secs
+Data transferred:               0.13 MB
+Response time:                  0.02 secs
+Transaction rate:               2.75 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                    0.07
+Successful transactions:         330
+Failed transactions:             136
+Longest transaction:            1.75
+Shortest transaction:           0.00
+```
+#### 4. Readiness 설정 추가 후 배포
+
+#### 6. Siege 결과 Availability 확인(100%)
+```
+Lifting the server siege...      done.
+
+Transactions:                    443 hits
+Availability:                 100.00 %
+Elapsed time:                 119.60 secs
+Data transferred:               0.51 MB
+Response time:                  0.01 secs
+Transaction rate:               3.70 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                    0.04
+Successful transactions:         443
+Failed transactions:               0
+Longest transaction:            0.18
+Shortest transaction:           0.00
+ 
+FILE: /var/log/siege.log
 ```
 
 ## Liveness Probe 점검

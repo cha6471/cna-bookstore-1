@@ -246,34 +246,8 @@ transfer-encoding: chunked
 
 ### 장애 격리
 ```
-1. Customer 서비스 중지
-	kubectl delete deploy customer
-	
-2. 주문 생성
-	root@httpie:/# http POST http://gateway:8080/orders bookId=1 customerId=1 deliveryAddress="bundang gu" quantity=50
-
-3. 주문 생성 결과 확인
-HTTP/1.1 201 Created
-Content-Type: application/json;charset=UTF-8
-Date: Wed, 09 Sep 2020 02:00:35 GMT
-Location: http://order:8080/orders/1
-transfer-encoding: chunked
-
-{
-    "_links": {
-        "order": {
-            "href": "http://order:8080/orders/1"
-        }, 
-        "self": {
-            "href": "http://order:8080/orders/1"
-        }
-    }, 
-    "bookId": 1, 
-    "customerId": 1, 
-    "deliveryAddress": "bundang gu", 
-    "orderStatus": "Customer_Not_Verified", 
-    "quantity": 50
-}
+Customer 서비스 중지 시 Kakao Alarm 미 전송
+@PrePersist 에서 try / catch 처리
 ```
 
 ## CI/CD 점검

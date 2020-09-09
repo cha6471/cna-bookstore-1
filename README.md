@@ -58,8 +58,46 @@ http POST http://gateway:8080/customers customerName="bak na re"
 
 ### 책 정보 생성
 ```
-http POST http://gateway:8080/books bookName="alice in a wonderland" stock=100
-http POST http://gateway:8080/books bookName="quobadis?" stock=50
+$ http POST http://gateway:8080/books bookName="alice in a wonderland" stock=100
+HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 09 Sep 2020 01:53:45 GMT
+Location: http://bookinventory:8080/books/1
+transfer-encoding: chunked
+
+{
+    "_links": {
+        "book": {
+            "href": "http://bookinventory:8080/books/1"
+        }, 
+        "self": {
+            "href": "http://bookinventory:8080/books/1"
+        }
+    }, 
+    "bookName": "alice in a wonderland", 
+    "stock": 100
+}
+
+$ http POST http://gateway:8080/books bookName="quobadis?" stock=50
+HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 09 Sep 2020 01:54:38 GMT
+Location: http://bookinventory:8080/books/2
+transfer-encoding: chunked
+
+{
+    "_links": {
+        "book": {
+            "href": "http://bookinventory:8080/books/2"
+        }, 
+        "self": {
+            "href": "http://bookinventory:8080/books/2"
+        }
+    }, 
+    "bookName": "quobadis?", 
+    "stock": 50
+}
+
 ```
 
 ### 주문 생성

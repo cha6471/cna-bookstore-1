@@ -70,18 +70,19 @@ http POST http://gateway:8080/stockInputs bookId=1 quantity=200
 ```
 ##### 재고 수량 변경 확인 결과
 ##### 주문 상태 변경 확인 결과
-'''
+```
 http http://gateway:8080/orders
 http http://gateway:8080/deliverables
 http http://gateway:8080/deliveries
-'''
+```
 
 ### 배송 상태 변경
 ```
 ```
 
 ### 고객 Mypage 이력 확인
-
+```
+```
 
 ## CI/CD 점검
 

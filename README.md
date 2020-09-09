@@ -28,7 +28,7 @@
 ```
 
 ## Cloud Native Application Model
-![Alt text](cna-bookstore-jw.PNG?raw=true "Optional Title")
+![Alt text](cna-bookstore-jw-2.PNG?raw=true "Optional Title")
 
 ## 구현 점검
 

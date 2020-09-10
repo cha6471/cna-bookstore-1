@@ -45,6 +45,7 @@ http http://gateway:8080/deliverables
 http http://gateway:8080/stockInputs
 http http://gateway:8080/orders
 http http://gateway:8080/deliveries
+http http://gateway:8080/kakaoAlarms
 ```
 
 ### Kafka 기동 및 모니터링 용 Consumer 연결

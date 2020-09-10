@@ -270,9 +270,8 @@ CircuitBeaker 발생
 		- 10000ms(10sec) 
 ```
 
-```
-실행 결과
-```
+
+### 실행 결과
 ![Alt text](kakao_circuitBreaker.PNG?raw=true "Optional Title")
 ```
 root@httpie:/# http http://kakao:8080/selectKakaoAlarmInfo?id=1
@@ -292,9 +291,9 @@ Date: Wed, 09 Sep 2020 15:43:17 GMT
 CircuitBreaker!!!
 ```
 
-```
-소스 코드
 
+### 소스 코드
+```
   @GetMapping("/selectKakaoAlarmInfo")
   @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
           @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),

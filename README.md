@@ -242,7 +242,7 @@ transfer-encoding: chunked
 ![Alt text](kakao_alarmMessage.PNG?raw=true "Optional Title")
 
 ### 고객 Mypage 이력 확인
-![Alt text](kakao_myPages.PNG?raw=true "Optional Title")
+![Alt text](kakao_myPages_2.png?raw=true "Optional Title")
 ![Alt text](kakao_myPages_src.PNG?raw=true "Optional Title")
 
 ### 장애 격리
